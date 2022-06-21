@@ -410,35 +410,35 @@ esac
 }
 ############# Các thành phần quản lý nhân #############
 
-#删除多余内核
+# loại bỏ các hạt nhân thừa
 detele_kernel(){
 	if [[ "${release}" == "centos" ]]; then
 		rpm_total=`rpm -qa | grep kernel | grep -v "${kernel_version}" | grep -v "noarch" | wc -l`
 		if [ "${rpm_total}" > "1" ]; then
-			echo -e "检测到 ${rpm_total} 个其余内核，开始卸载..."
+			echo -e "Phát hiện ${rpm_total} các hạt nhân còn lại, bắt đầu gỡ cài đặt..."
 			for((integer = 1; integer <= ${rpm_total}; integer++)); do
 				rpm_del=`rpm -qa | grep kernel | grep -v "${kernel_version}" | grep -v "noarch" | head -${integer}`
-				echo -e "开始卸载 ${rpm_del} 内核..."
+				echo -e "Bắt đầu gỡ cài đặt ${rpm_del} hạt nhân..."
 				rpm --nodeps -e ${rpm_del}
-				echo -e "卸载 ${rpm_del} 内核卸载完成，继续..."
+				echo -e "Gỡ cài đặt ${rpm_del} Quá trình gỡ hạt nhân đã hoàn tất, hãy tiếp tục..."
 			done
-			echo --nodeps -e "内核卸载完毕，继续..."
+			echo --nodeps -e "Quá trình gỡ cài đặt kernel hoàn tất, hãy tiếp tục..."
 		else
-			echo -e " 检测到 内核 数量不正确，请检查 !" && exit 1
+			echo -e " Đã phát hiện số lõi không chính xác, vui lòng kiểm tra !" && exit 1
 		fi
 	elif [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
 		deb_total=`dpkg -l | grep linux-image | awk '{print $2}' | grep -v "${kernel_version}" | wc -l`
 		if [ "${deb_total}" > "1" ]; then
-			echo -e "检测到 ${deb_total} 个其余内核，开始卸载..."
+			echo -e " Phát hiện ${deb_total} các hạt nhân còn lại, bắt đầu gỡ cài đặt..."
 			for((integer = 1; integer <= ${deb_total}; integer++)); do
 				deb_del=`dpkg -l|grep linux-image | awk '{print $2}' | grep -v "${kernel_version}" | head -${integer}`
-				echo -e "开始卸载 ${deb_del} 内核..."
+				echo -e "Bắt đầu gỡ cài đặt ${deb_del} hạt nhân..."
 				apt-get purge -y ${deb_del}
-				echo -e "卸载 ${deb_del} 内核卸载完成，继续..."
+				echo -e "Gỡ cài đặt ${deb_del} Quá trình dỡ hạt nhân đã hoàn tất, hãy tiếp tục..."
 			done
-			echo -e "内核卸载完毕，继续..."
+			echo -e " Quá trình gỡ cài đặt kernel hoàn tất, hãy tiếp tục..."
 		else
-			echo -e " 检测到 内核 数量不正确，请检查 !" && exit 1
+			echo -e " Đã phát hiện số lõi không chính xác, vui lòng kiểm tra !" && exit 1
 		fi
 	fi
 }
@@ -448,13 +448,13 @@ BBR_grub(){
 	if [[ "${release}" == "centos" ]]; then
         if [[ ${version} = "6" ]]; then
             if [ ! -f "/boot/grub/grub.conf" ]; then
-                echo -e "${Error} /boot/grub/grub.conf 找不到，请检查."
+                echo -e "${Error} /boot/grub/grub.conf không tìm thấy, vui lòng kiểm tra."
                 exit 1
             fi
             sed -i 's/^default=.*/default=0/g' /boot/grub/grub.conf
         elif [[ ${version} = "7" ]]; then
             if [ ! -f "/boot/grub2/grub.cfg" ]; then
-                echo -e "${Error} /boot/grub2/grub.cfg 找不到，请检查."
+                echo -e "${Error} /boot/grub2/grub.cfg không tìm thấy, vui lòng kiểm tra."
                 exit 1
             fi
             grub2-set-default 0
@@ -504,29 +504,29 @@ check_version(){
 	fi
 }
 
-#检查安装bbr的系统要求
+# Kiểm tra các yêu cầu hệ thống để cài đặt bbr
 check_sys_bbr(){
 	check_version
 	if [[ "${release}" == "centos" ]]; then
 		if [[ ${version} -ge "6" ]]; then
 			installbbr
 		else
-			echo -e "${Error} BBR内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
+			echo -e "${Error} Hạt nhân BBR không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	elif [[ "${release}" == "debian" ]]; then
 		if [[ ${version} -ge "8" ]]; then
 			installbbr
 		else
-			echo -e "${Error} BBR内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
+			echo -e "${Error} Hạt nhân BBR không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	elif [[ "${release}" == "ubuntu" ]]; then
 		if [[ ${version} -ge "14" ]]; then
 			installbbr
 		else
-			echo -e "${Error} BBR内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
+			echo -e "${Error} Hạt nhân BBR không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	else
-		echo -e "${Error} BBR内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
+		echo -e "${Error} Hạt nhân BBR không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 	fi
 }
 
@@ -536,27 +536,27 @@ check_sys_bbrplus(){
 		if [[ ${version} -ge "6" ]]; then
 			installbbrplus
 		else
-			echo -e "${Error} BBRplus内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
+			echo -e "${Error} Hạt nhân BBRplus không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	elif [[ "${release}" == "debian" ]]; then
 		if [[ ${version} -ge "8" ]]; then
 			installbbrplus
 		else
-			echo -e "${Error} BBRplus内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
+			echo -e "${Error} Hạt nhân BBRplus không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	elif [[ "${release}" == "ubuntu" ]]; then
 		if [[ ${version} -ge "14" ]]; then
 			installbbrplus
 		else
-			echo -e "${Error} BBRplus内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
+			echo -e "${Error} Hạt nhân BBRplus không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	else
-		echo -e "${Error} BBRplus内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
+		echo -e "${Error} Hạt nhân BBRplus không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 	fi
 }
 
 
-#检查安装Lotsever的系统要求
+# Kiểm tra các yêu cầu hệ thống để cài đặt Lotusever
 check_sys_Lotsever(){
 	check_version
 	if [[ "${release}" == "centos" ]]; then
@@ -568,7 +568,7 @@ check_sys_Lotsever(){
 			kernel_version="3.10.0-327"
 			installlot
 		else
-			echo -e "${Error} Lotsever不支持当前系统 ${release} ${version} ${bit} !" && exit 1
+			echo -e "${Error} Lotsever không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	elif [[ "${release}" == "debian" ]]; then
 		if [[ ${version} = "7" || ${version} = "8" ]]; then
@@ -585,7 +585,7 @@ check_sys_Lotsever(){
 				installlot
 			fi
 		else
-			echo -e "${Error} Lotsever不支持当前系统 ${release} ${version} ${bit} !" && exit 1
+			echo -e "${Error} Lotsever không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	elif [[ "${release}" == "ubuntu" ]]; then
 		if [[ ${version} -ge "12" ]]; then
@@ -597,10 +597,10 @@ check_sys_Lotsever(){
 				installlot
 			fi
 		else
-			echo -e "${Error} Lotsever不支持当前系统 ${release} ${version} ${bit} !" && exit 1
+			echo -e "${Error} Lotsever không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	else
-		echo -e "${Error} Lotsever不支持当前系统 ${release} ${version} ${bit} !" && exit 1
+		echo -e "${Error} Lotsever không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 	fi
 }
 
@@ -621,28 +621,28 @@ check_status(){
 		if [[ -e /appex/bin/lotServer.sh ]]; then
 			run_status=`bash /appex/bin/lotServer.sh status | grep "LotServer" | awk  '{print $3}'`
 			if [[ ${run_status} = "running!" ]]; then
-				run_status="启动成功"
+				run_status="Đã bật thành công"
 			else 
-				run_status="启动失败"
+				run_status="không thể kích hoạt"
 			fi
 		else 
-			run_status="未安装加速模块"
+			run_status="Mô-đun tăng tốc chưa được cài đặt"
 		fi
 	elif [[ ${kernel_status} == "BBR" ]]; then
 		run_status=`grep "net.ipv4.tcp_congestion_control" /etc/sysctl.conf | awk -F "=" '{gsub("^[ \t]+|[ \t]+$", "", $2);print $2}'`
 		if [[ ${run_status} == "bbr" ]]; then
 			run_status=`lsmod | grep "bbr" | awk '{print $1}'`
 			if [[ ${run_status} == "tcp_bbr" ]]; then
-				run_status="BBR启动成功"
+				run_status="BBR đã bật thành công"
 			else 
-				run_status="BBR启动失败"
+				run_status="BBR không khởi động được"
 			fi
 		elif [[ ${run_status} == "tsunami" ]]; then
 			run_status=`lsmod | grep "tsunami" | awk '{print $1}'`
 			if [[ ${run_status} == "tcp_tsunami" ]]; then
-				run_status="Bản sửa đổi BBR Magic đã bắt đầu thành công"
+				run_status="Bản sửa đổi BBR Magic đã bật thành công"
 			else 
-				run_status="Không thể bắt đầu sửa đổi BBR Magic"
+				run_status="Không thể sửa đổi BBR Magic"
 			fi
 		elif [[ ${run_status} == "nanqinlang" ]]; then
 			run_status=`lsmod | grep "nanqinlang" | awk '{print $1}'`
