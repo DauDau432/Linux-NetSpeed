@@ -15,11 +15,11 @@ sh_ver="1.4.0"
 github="raw.githubusercontent.com/chiakge/Linux-NetSpeed/master"
 
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
-Info="${Green_font_prefix}[信息]${Font_color_suffix}"
-Error="${Red_font_prefix}[错误]${Font_color_suffix}"
-Tip="${Green_font_prefix}[注意]${Font_color_suffix}"
+Info="${Green_font_prefix}[Thông tin]${Font_color_suffix}"
+Error="${Red_font_prefix}[Điền sai]${Font_color_suffix}"
+Tip="${Green_font_prefix}[Để ý]${Font_color_suffix}"
 
-#安装BBR内核
+#Cài đặt hạt nhân BBR
 installbbr(){
 	kernel_version="4.11.8"
 	if [[ "${release}" == "centos" ]]; then
@@ -43,16 +43,16 @@ installbbr(){
 	fi
 	detele_kernel
 	BBR_grub
-	echo -e "${Tip} 重启VPS后，请重新运行脚本开启${Red_font_prefix}BBR/BBR魔改版${Font_color_suffix}"
-	stty erase '^H' && read -p "需要重启VPS后，才能开启BBR/BBR魔改版，是否现在重启 ? [Y/n] :" yn
+	echo -e "${Tip} Sau khi khởi động lại VPS, vui lòng chạy lại script để kích hoạt ${Red_font_prefix}BBR/BBR Magic đã được sửa đổi${Font_color_suffix}"
+	stty erase '^H' && read -p "Bạn cần khởi động lại VPS trước khi có thể mở bản sửa đổi kỳ BBR/BBR Magic. Bạn có muốn khởi động lại ngay bây giờ không? [Y/n]: " yn
 	[ -z "${yn}" ] && yn="y"
 	if [[ $yn == [Yy] ]]; then
-		echo -e "${Info} VPS 重启中..."
+		echo -e "${Info} Đang khởi động lại VPS..."
 		reboot
 	fi
 }
 
-#安装BBRplus内核
+#Cài đặt hạt nhân BBRplus
 installbbrplus(){
 	kernel_version="4.14.129-bbrplus"
 	if [[ "${release}" == "centos" ]]; then
@@ -70,16 +70,16 @@ installbbrplus(){
 	fi
 	detele_kernel
 	BBR_grub
-	echo -e "${Tip} 重启VPS后，请重新运行脚本开启${Red_font_prefix}BBRplus${Font_color_suffix}"
-	stty erase '^H' && read -p "需要重启VPS后，才能开启BBRplus，是否现在重启 ? [Y/n] :" yn
+	echo -e "${Tip} Sau khi khởi động lại VPS, vui lòng chạy lại script để kích hoạt${Red_font_prefix} BBRplus${Font_color_suffix}"
+	stty erase '^H' && read -p "BBRplus cần được khởi động lại sau khi VPS được khởi động lại. Bạn có muốn khởi động lại bây giờ không? [Y/n]: " yn
 	[ -z "${yn}" ] && yn="y"
 	if [[ $yn == [Yy] ]]; then
-		echo -e "${Info} VPS 重启中..."
+		echo -e "${Info} Đang khởi động lại VPS..."
 		reboot
 	fi
 }
 
-#安装Lotserver内核
+# Cài đặt nhân Lotserver
 installlot(){
 	if [[ "${release}" == "centos" ]]; then
 		rpm --import http://${github}/lotserver/${release}/RPM-GPG-KEY-elrepo.org
@@ -96,16 +96,16 @@ installlot(){
 	fi
 	detele_kernel
 	BBR_grub
-	echo -e "${Tip} 重启VPS后，请重新运行脚本开启${Red_font_prefix}Lotserver${Font_color_suffix}"
-	stty erase '^H' && read -p "需要重启VPS后，才能开启Lotserver，是否现在重启 ? [Y/n] :" yn
+	echo -e "${Tip} Sau khi khởi động lại VPS, vui lòng chạy lại script để kích hoạt ${Red_font_prefix}Lotserver${Font_color_suffix}"
+	stty erase '^H' && read -p "Lotserver cần được khởi động lại sau khi khởi động lại VPS. Bạn có muốn khởi động lại nó ngay bây giờ không? [Y/n]: " yn
 	[ -z "${yn}" ] && yn="y"
 	if [[ $yn == [Yy] ]]; then
-		echo -e "${Info} VPS 重启中..."
+		echo -e "${Info} Đang khởi động lại VPS..."
 		reboot
 	fi
 }
 
-#启用BBR
+# Bật BBR
 startbbr(){
 	remove_all
 	if [[ `echo ${kernel_version} | awk -F'.' '{print $1}'` -ge "5" ]]; then
@@ -116,19 +116,19 @@ startbbr(){
 		echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
 	fi
 	sysctl -p
-	echo -e "${Info}BBR启动成功！"
+	echo -e "${Info}BBR đã bật thành công！"
 }
 
-#启用BBRplus
+# Bật BBRplus
 startbbrplus(){
 	remove_all
 	echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
 	echo "net.ipv4.tcp_congestion_control=bbrplus" >> /etc/sysctl.conf
 	sysctl -p
-	echo -e "${Info}BBRplus启动成功！"
+	echo -e "${Info}BBRplus đã bật thành công！"
 }
 
-#编译并启用BBR魔改
+# Biên dịch và kích hoạt BBR magic
 startbbrmod(){
 	remove_all
 	if [[ "${release}" == "centos" ]]; then
@@ -165,10 +165,10 @@ startbbrmod(){
 	echo "net.ipv4.tcp_congestion_control=tsunami" >> /etc/sysctl.conf
 	sysctl -p
     cd .. && rm -rf bbrmod
-	echo -e "${Info}魔改版BBR启动成功！"
+	echo -e "${Info}Đã khởi chạy thành công phiên bản Magic BBR！"
 }
 
-#编译并启用BBR魔改
+# Biên dịch và kích hoạt BBR magic
 startbbrmod_nanqinlang(){
 	remove_all
 	if [[ "${release}" == "centos" ]]; then
@@ -203,10 +203,10 @@ startbbrmod_nanqinlang(){
 	echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
 	echo "net.ipv4.tcp_congestion_control=nanqinlang" >> /etc/sysctl.conf
 	sysctl -p
-	echo -e "${Info}魔改版BBR启动成功！"
+	echo -e "${Info}Đã khởi chạy thành công phiên bản Magic BBR！"
 }
 
-#启用Lotserver
+# Bật Lotserver
 startlotserver(){
 	remove_all
 	if [[ "${release}" == "centos" ]]; then
@@ -224,7 +224,7 @@ maxmode=\"1\"">>/appex/etc/config
 	start_menu
 }
 
-#卸载全部加速
+# gỡ cài đặt tất cả tăng tốc
 remove_all(){
 	rm -rf bbrmod
 	sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
@@ -262,11 +262,11 @@ remove_all(){
 		bash <(wget --no-check-certificate -qO- https://github.com/MoeClub/lotServer/raw/master/Install.sh) uninstall
 	fi
 	clear
-	echo -e "${Info}:清除加速完成。"
+	echo -e "${Info}:Hoàn thành tăng tốc rõ ràng。"
 	sleep 1s
 }
 
-#优化系统配置
+# Tối ưu hóa cấu hình hệ thống
 optimizing_system(){
 	sed -i '/fs.file-max/d' /etc/sysctl.conf
 	sed -i '/fs.inotify.max_user_instances/d' /etc/sysctl.conf
@@ -303,66 +303,66 @@ net.ipv4.ip_forward = 1">>/etc/sysctl.conf
 	echo "*               soft    nofile           1000000
 *               hard    nofile          1000000">/etc/security/limits.conf
 	echo "ulimit -SHn 1000000">>/etc/profile
-	read -p "需要重启VPS后，才能生效系统优化配置，是否现在重启 ? [Y/n] :" yn
+	read -p "Cấu hình tối ưu hóa hệ thống chỉ có thể có hiệu lực sau khi khởi động lại VPS. Bạn có muốn khởi động lại ngay bây giờ không? [Y/n]: " yn
 	[ -z "${yn}" ] && yn="y"
 	if [[ $yn == [Yy] ]]; then
-		echo -e "${Info} VPS 重启中..."
+		echo -e "${Info} Đang khởi động lại VPS..."
 		reboot
 	fi
 }
-#更新脚本
+# cập nhật kịch bản
 Update_Shell(){
-	echo -e "当前版本为 [ ${sh_ver} ]，开始检测最新版本..."
+	echo -e "Phiên bản hiện tại là [ ${sh_ver} ]，Bắt đầu tìm phiên bản mới nhất..."
 	sh_new_ver=$(wget --no-check-certificate -qO- "http://${github}/tcp.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1)
-	[[ -z ${sh_new_ver} ]] && echo -e "${Error} 检测最新版本失败 !" && start_menu
+	[[ -z ${sh_new_ver} ]] && echo -e "${Error} Không phát hiện được phiên bản mới nhất !" && start_menu
 	if [[ ${sh_new_ver} != ${sh_ver} ]]; then
-		echo -e "发现新版本[ ${sh_new_ver} ]，是否更新？[Y/n]"
-		read -p "(默认: y):" yn
+		echo -e "phiên bản mới được tìm thấy[ ${sh_new_ver} ]，Cập nhật? [Y/n]"
+		read -p "(mặc định: y):" yn
 		[[ -z "${yn}" ]] && yn="y"
 		if [[ ${yn} == [Yy] ]]; then
 			wget -N --no-check-certificate http://${github}/tcp.sh && chmod +x tcp.sh
-			echo -e "脚本已更新为最新版本[ ${sh_new_ver} ] !"
+			echo -e "Tập lệnh đã được cập nhật lên phiên bản mới nhất[ ${sh_new_ver} ] !"
 		else
-			echo && echo "	已取消..." && echo
+			echo && echo "	Đã hủy..." && echo
 		fi
 	else
-		echo -e "当前已是最新版本[ ${sh_new_ver} ] !"
+		echo -e "Hiện tại là phiên bản mới nhất[ ${sh_new_ver} ] !"
 		sleep 5s
 	fi
 }
 
-#开始菜单
+# Menu Bắt đầu
 start_menu(){
 clear
-echo && echo -e " TCP加速 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
-  -- 就是爱生活 | 94ish.me --
+echo && echo -e " Tập lệnh quản lý cài đặt tăng tốc TCP ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
+  -- Đậu Đậu 5.0 | https://github.com/DauDau432/BBR --
   
- ${Green_font_prefix}0.${Font_color_suffix} 升级脚本
-————————————内核管理————————————
- ${Green_font_prefix}1.${Font_color_suffix} 安装 BBR/BBR魔改版内核
- ${Green_font_prefix}2.${Font_color_suffix} 安装 BBRplus版内核 
- ${Green_font_prefix}3.${Font_color_suffix} 安装 Lotserver(锐速)内核
-————————————加速管理————————————
- ${Green_font_prefix}4.${Font_color_suffix} 使用BBR加速
- ${Green_font_prefix}5.${Font_color_suffix} 使用BBR魔改版加速
- ${Green_font_prefix}6.${Font_color_suffix} 使用暴力BBR魔改版加速(不支持部分系统)
- ${Green_font_prefix}7.${Font_color_suffix} 使用BBRplus版加速
- ${Green_font_prefix}8.${Font_color_suffix} 使用Lotserver(锐速)加速
-————————————杂项管理————————————
- ${Green_font_prefix}9.${Font_color_suffix} 卸载全部加速
- ${Green_font_prefix}10.${Font_color_suffix} 系统配置优化
- ${Green_font_prefix}11.${Font_color_suffix} 退出脚本
+ ${Green_font_prefix}0.${Font_color_suffix} nâng cấp script
+———————————— Quản lý nhân ————————————
+ ${Green_font_prefix}1.${Font_color_suffix} Cài đặt hạt nhân được sửa đổi BBR Magic / BBR
+ ${Green_font_prefix}2.${Font_color_suffix} Cài đặt phiên bản BBRplus của hạt nhân
+ ${Green_font_prefix}3.${Font_color_suffix} Cài đặt nhân Lotserver (Tốc độ sắc nét)
+———————————— Quản lý tăng tốc ————————————
+ ${Green_font_prefix}4.${Font_color_suffix} Tăng tốc với BBR
+ ${Green_font_prefix}5.${Font_color_suffix} Sử dụng bản sửa đổi BBR Magic để tăng tốc độ
+ ${Green_font_prefix}6.${Font_color_suffix} Sử dụng sửa đổi BBR Magic violence để tăng tốc (một số hệ thống không được hỗ trợ)
+ ${Green_font_prefix}7.${Font_color_suffix} Tăng tốc với phiên bản BBRplus
+ ${Green_font_prefix}8.${Font_color_suffix} Sử dụng Lotserver (tốc độ nhanh) để tăng tốc
+———————————— Quản lý khác ————————————
+ ${Green_font_prefix}9.${Font_color_suffix} Gỡ cài đặt tất cả tăng tốc
+ ${Green_font_prefix}10.${Font_color_suffix} Tối ưu hóa cấu hình hệ thống
+ ${Green_font_prefix}11.${Font_color_suffix} Thoát
 ————————————————————————————————" && echo
 
 	check_status
 	if [[ ${kernel_status} == "noinstall" ]]; then
-		echo -e " 当前状态: ${Green_font_prefix}未安装${Font_color_suffix} 加速内核 ${Red_font_prefix}请先安装内核${Font_color_suffix}"
+		echo -e " Tình trạng hiện tại: ${Green_font_prefix}Chưa cài đặt${Font_color_suffix} hạt nhân tăng tốc ${Red_font_prefix}Vui lòng cài đặt hạt nhân trước${Font_color_suffix}"
 	else
-		echo -e " 当前状态: ${Green_font_prefix}已安装${Font_color_suffix} ${_font_prefix}${kernel_status}${Font_color_suffix} 加速内核 , ${Green_font_prefix}${run_status}${Font_color_suffix}"
+		echo -e " Tình trạng hiện tại: ${Green_font_prefix}Cài đặt${Font_color_suffix} ${_font_prefix}${kernel_status}${Font_color_suffix} hạt nhân tăng tốc, ${Green_font_prefix}${run_status}${Font_color_suffix}"
 		
 	fi
 echo
-read -p " 请输入数字 [0-11]:" num
+read -p " Vui lòng nhập số [0-11]:" num
 case "$num" in
 	0)
 	Update_Shell
@@ -402,13 +402,13 @@ case "$num" in
 	;;
 	*)
 	clear
-	echo -e "${Error}:请输入正确数字 [0-11]"
+	echo -e "${Error}:Vui lòng nhập số chính xác [0-11]"
 	sleep 5s
 	start_menu
 	;;
 esac
 }
-#############内核管理组件#############
+############# Các thành phần quản lý nhân #############
 
 #删除多余内核
 detele_kernel(){
@@ -464,11 +464,11 @@ BBR_grub(){
     fi
 }
 
-#############内核管理组件#############
+############# Các thành phần quản lý nhân #############
 
 
 
-#############系统检测组件#############
+############# Các thành phần kiểm tra hệ thống #############
 
 #检查系统
 check_sys(){
@@ -640,38 +640,38 @@ check_status(){
 		elif [[ ${run_status} == "tsunami" ]]; then
 			run_status=`lsmod | grep "tsunami" | awk '{print $1}'`
 			if [[ ${run_status} == "tcp_tsunami" ]]; then
-				run_status="BBR魔改版启动成功"
+				run_status="Bản sửa đổi BBR Magic đã bắt đầu thành công"
 			else 
-				run_status="BBR魔改版启动失败"
+				run_status="Không thể bắt đầu sửa đổi BBR Magic"
 			fi
 		elif [[ ${run_status} == "nanqinlang" ]]; then
 			run_status=`lsmod | grep "nanqinlang" | awk '{print $1}'`
 			if [[ ${run_status} == "tcp_nanqinlang" ]]; then
-				run_status="暴力BBR魔改版启动成功"
+				run_status="Đã khởi chạy thành công bản sửa đổi BBR Magic violence"
 			else 
-				run_status="暴力BBR魔改版启动失败"
+				run_status="Không thể khởi động bản sửa đổi BBR Magic violence"
 			fi
 		else 
-			run_status="未安装加速模块"
+			run_status="Mô-đun tăng tốc chưa được cài đặt"
 		fi
 	elif [[ ${kernel_status} == "BBRplus" ]]; then
 		run_status=`grep "net.ipv4.tcp_congestion_control" /etc/sysctl.conf | awk -F "=" '{gsub("^[ \t]+|[ \t]+$", "", $2);print $2}'`
 		if [[ ${run_status} == "bbrplus" ]]; then
 			run_status=`lsmod | grep "bbrplus" | awk '{print $1}'`
 			if [[ ${run_status} == "tcp_bbrplus" ]]; then
-				run_status="BBRplus启动成功"
+				run_status="BBRplus đã bật thành công"
 			else 
-				run_status="BBRplus启动失败"
+				run_status="BBRplus không khởi động được"
 			fi
 		else 
-			run_status="未安装加速模块"
+			run_status="Mô-đun tăng tốc chưa được cài đặt"
 		fi
 	fi
 }
 
-#############系统检测组件#############
+############# Các thành phần kiểm tra hệ thống #############
 check_sys
 check_version
-[[ ${release} != "debian" ]] && [[ ${release} != "ubuntu" ]] && [[ ${release} != "centos" ]] && echo -e "${Error} 本脚本不支持当前系统 ${release} !" && exit 1
+[[ ${release} != "debian" ]] && [[ ${release} != "ubuntu" ]] && [[ ${release} != "centos" ]] && echo -e "${Error} Script này không hỗ trợ hệ thống hiện tại ${release} !" && exit 1
 start_menu
 
