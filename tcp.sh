@@ -3,12 +3,12 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
 #=================================================
-#	System Required: CentOS 6/7,Debian 8/9,Ubuntu 16+
-#	Description: BBR+BBR魔改版+BBRplus+Lotserver
-#	Version: 1.4.0
-#	Author: 千影,cx9208
-#	Blog: https://www.939.me/
-#   推荐使用5.5以上内核直接开启的bbr速度最佳
+#  Yêu cầu hệ thống: CentOS 6/7, Debian 8/9, Ubuntu 16+
+#  Mô tả: BBR + BBR bản sửa đổi phép thuật + BBRplus + Lotserver
+#  Phiên bản: 1.4.0
+#  Tác giả: Qianying, cx9208
+#  Blog: https://www.939.me/
+#  Nên sử dụng kernel trên 5.5 để mở trực tiếp bbr để có tốc độ tốt nhất
 #=================================================
 
 sh_ver="1.4.0"
