@@ -16,8 +16,8 @@ github="raw.githubusercontent.com/DauDau432/Linux-NetSpeed/master"
 
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
 Info="${Green_font_prefix}[Thông tin]${Font_color_suffix}"
-Error="${Red_font_prefix}[Điền sai]${Font_color_suffix}"
-Tip="${Green_font_prefix}[Để ý]${Font_color_suffix}"
+Error="${Red_font_prefix}[Viết sai]${Font_color_suffix}"
+Tip="${Green_font_prefix}[Chú ý]${Font_color_suffix}"
 
 #Cài đặt hạt nhân BBR
 installbbr(){
@@ -43,11 +43,11 @@ installbbr(){
 	fi
 	detele_kernel
 	BBR_grub
-	echo -e "${Tip} Sau khi khởi động lại VPS, vui lòng chạy lại script để kích hoạt ${Red_font_prefix}BBR/BBR Magic đã được sửa đổi${Font_color_suffix}"
-	stty erase '^H' && read -p "Bạn cần khởi động lại VPS trước khi có thể mở bản sửa đổi kỳ BBR/BBR Magic. Bạn có muốn khởi động lại ngay bây giờ không? [Y/n]: " yn
+	echo -e " ${Tip} Sau khi khởi động lại VPS, vui lòng chạy lại script để kích hoạt ${Red_font_prefix}BBR/BBR Magic đã được sửa đổi${Font_color_suffix}"
+	stty erase '^H' && read -p " Bạn cần khởi động lại VPS trước khi có thể mở bản sửa đổi kỳ BBR/BBR Magic. Bạn có muốn khởi động lại ngay bây giờ không? [Y/n]: " yn
 	[ -z "${yn}" ] && yn="y"
 	if [[ $yn == [Yy] ]]; then
-		echo -e "${Info} Đang khởi động lại VPS..."
+		echo -e " ${Info} Đang khởi động lại VPS..."
 		reboot
 	fi
 }
@@ -70,11 +70,11 @@ installbbrplus(){
 	fi
 	detele_kernel
 	BBR_grub
-	echo -e "${Tip} Sau khi khởi động lại VPS, vui lòng chạy lại script để kích hoạt${Red_font_prefix} BBRplus${Font_color_suffix}"
-	stty erase '^H' && read -p "BBRplus cần được khởi động lại sau khi VPS được khởi động lại. Bạn có muốn khởi động lại bây giờ không? [Y/n]: " yn
+	echo -e " ${Tip} Sau khi khởi động lại VPS, vui lòng chạy lại script để kích hoạt${Red_font_prefix} BBRplus${Font_color_suffix}"
+	stty erase '^H' && read -p " BBRplus cần được khởi động lại sau khi VPS được khởi động lại. Bạn có muốn khởi động lại bây giờ không? [Y/n]: " yn
 	[ -z "${yn}" ] && yn="y"
 	if [[ $yn == [Yy] ]]; then
-		echo -e "${Info} Đang khởi động lại VPS..."
+		echo -e " ${Info} Đang khởi động lại VPS..."
 		reboot
 	fi
 }
@@ -96,11 +96,11 @@ installlot(){
 	fi
 	detele_kernel
 	BBR_grub
-	echo -e "${Tip} Sau khi khởi động lại VPS, vui lòng chạy lại script để kích hoạt ${Red_font_prefix}Lotserver${Font_color_suffix}"
-	stty erase '^H' && read -p "Lotserver cần được khởi động lại sau khi khởi động lại VPS. Bạn có muốn khởi động lại nó ngay bây giờ không? [Y/n]: " yn
+	echo -e " ${Tip} Sau khi khởi động lại VPS, vui lòng chạy lại script để kích hoạt ${Red_font_prefix}Lotserver${Font_color_suffix}"
+	stty erase '^H' && read -p " Lotserver cần được khởi động lại sau khi khởi động lại VPS. Bạn có muốn khởi động lại nó ngay bây giờ không? [Y/n]: " yn
 	[ -z "${yn}" ] && yn="y"
 	if [[ $yn == [Yy] ]]; then
-		echo -e "${Info} Đang khởi động lại VPS..."
+		echo -e " ${Info} Đang khởi động lại VPS..."
 		reboot
 	fi
 }
@@ -116,7 +116,7 @@ startbbr(){
 		echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
 	fi
 	sysctl -p
-	echo -e "${Info}BBR đã bật thành công！"
+	echo -e " ${Info} BBR đã bật thành công！"
 }
 
 # Bật BBRplus
@@ -125,7 +125,7 @@ startbbrplus(){
 	echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
 	echo "net.ipv4.tcp_congestion_control=bbrplus" >> /etc/sysctl.conf
 	sysctl -p
-	echo -e "${Info}BBRplus đã bật thành công！"
+	echo -e " ${Info} BBRplus đã bật thành công！"
 }
 
 # Biên dịch và kích hoạt BBR magic
@@ -165,7 +165,7 @@ startbbrmod(){
 	echo "net.ipv4.tcp_congestion_control=tsunami" >> /etc/sysctl.conf
 	sysctl -p
     cd .. && rm -rf bbrmod
-	echo -e "${Info}Đã khởi chạy thành công phiên bản Magic BBR！"
+	echo -e " ${Info} Đã khởi chạy thành công phiên bản Magic BBR！"
 }
 
 # Biên dịch và kích hoạt BBR magic
@@ -203,7 +203,7 @@ startbbrmod_nanqinlang(){
 	echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
 	echo "net.ipv4.tcp_congestion_control=nanqinlang" >> /etc/sysctl.conf
 	sysctl -p
-	echo -e "${Info}Đã khởi chạy thành công phiên bản Magic BBR！"
+	echo -e " ${Info} Đã khởi chạy thành công phiên bản Magic BBR！"
 }
 
 # Bật Lotserver
@@ -262,7 +262,7 @@ remove_all(){
 		bash <(wget --no-check-certificate -qO- https://github.com/MoeClub/lotServer/raw/master/Install.sh) uninstall
 	fi
 	clear
-	echo -e "${Info}:Hoàn thành tăng tốc rõ ràng。"
+	echo -e " ${Info} Hoàn thành tăng tốc server。"
 	sleep 1s
 }
 
@@ -303,30 +303,30 @@ net.ipv4.ip_forward = 1">>/etc/sysctl.conf
 	echo "*               soft    nofile           1000000
 *               hard    nofile          1000000">/etc/security/limits.conf
 	echo "ulimit -SHn 1000000">>/etc/profile
-	read -p "Cấu hình tối ưu hóa hệ thống chỉ có thể có hiệu lực sau khi khởi động lại VPS. Bạn có muốn khởi động lại ngay bây giờ không? [Y/n]: " yn
+	read -p " Cấu hình tối ưu hóa hệ thống chỉ có hiệu lực sau khi khởi động lại VPS. Bạn có muốn khởi động lại ngay bây giờ không? [Y/n]: " yn
 	[ -z "${yn}" ] && yn="y"
 	if [[ $yn == [Yy] ]]; then
-		echo -e "${Info} Đang khởi động lại VPS..."
+		echo -e " ${Info} Đang khởi động lại VPS..."
 		reboot
 	fi
 }
 # cập nhật kịch bản
 Update_Shell(){
-	echo -e "Phiên bản hiện tại là [ ${sh_ver} ]，Bắt đầu tìm phiên bản mới nhất..."
+	echo -e " Phiên bản hiện tại là [ ${sh_ver} ]，Bắt đầu tìm phiên bản mới nhất..."
 	sh_new_ver=$(wget --no-check-certificate -qO- "http://${github}/tcp.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1)
-	[[ -z ${sh_new_ver} ]] && echo -e "${Error} Không phát hiện được phiên bản mới nhất !" && start_menu
+	[[ -z ${sh_new_ver} ]] && echo -e " ${Error} Không phát hiện được phiên bản mới nhất !" && start_menu
 	if [[ ${sh_new_ver} != ${sh_ver} ]]; then
-		echo -e "phiên bản mới được tìm thấy[ ${sh_new_ver} ]，Cập nhật? [Y/n]"
-		read -p "(mặc định: y):" yn
+		echo -e " phiên bản mới được tìm thấy[ ${sh_new_ver} ]，Cập nhật? [Y/n]"
+		read -p " (mặc định: y):" yn
 		[[ -z "${yn}" ]] && yn="y"
 		if [[ ${yn} == [Yy] ]]; then
 			wget -N --no-check-certificate http://${github}/tcp.sh && chmod +x tcp.sh
-			echo -e "Tập lệnh đã được cập nhật lên phiên bản mới nhất[ ${sh_new_ver} ] !"
+			echo -e " Tập lệnh đã được cập nhật lên phiên bản mới nhất[ ${sh_new_ver} ] !"
 		else
 			echo && echo "	Đã hủy..." && echo
 		fi
 	else
-		echo -e "Hiện tại là phiên bản mới nhất[ ${sh_new_ver} ] !"
+		echo -e " Hiện tại là phiên bản mới nhất[ ${sh_new_ver} ] !"
 		sleep 5s
 	fi
 }
@@ -335,18 +335,18 @@ Update_Shell(){
 start_menu(){
 clear
 echo && echo -e " Tập lệnh quản lý cài đặt tăng tốc TCP ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
-  -- Đậu Đậu 5.0 | https://github.com/DauDau432/BBR --
+  -- Đậu Đậu 5.0 | https://github.com/DauDau432/Linux-NetSpeed --
   
  ${Green_font_prefix}0.${Font_color_suffix} nâng cấp script
-———————————— Quản lý nhân ————————————
+———————————— Quản lý mô-đun ————————————
  ${Green_font_prefix}1.${Font_color_suffix} Cài đặt hạt nhân được sửa đổi BBR Magic / BBR
  ${Green_font_prefix}2.${Font_color_suffix} Cài đặt phiên bản BBRplus của hạt nhân
  ${Green_font_prefix}3.${Font_color_suffix} Cài đặt nhân Lotserver (Tốc độ sắc nét)
 ———————————— Quản lý tăng tốc ————————————
- ${Green_font_prefix}4.${Font_color_suffix} Tăng tốc với BBR
+ ${Green_font_prefix}4.${Font_color_suffix} Sử dụng BBR để tăng tốc
  ${Green_font_prefix}5.${Font_color_suffix} Sử dụng bản sửa đổi BBR Magic để tăng tốc độ
  ${Green_font_prefix}6.${Font_color_suffix} Sử dụng sửa đổi BBR Magic violence để tăng tốc (một số hệ thống không được hỗ trợ)
- ${Green_font_prefix}7.${Font_color_suffix} Tăng tốc với phiên bản BBRplus
+ ${Green_font_prefix}7.${Font_color_suffix} Sử dụng phiên bản BBRplus để tăng tốc
  ${Green_font_prefix}8.${Font_color_suffix} Sử dụng Lotserver (tốc độ nhanh) để tăng tốc
 ———————————— Quản lý khác ————————————
  ${Green_font_prefix}9.${Font_color_suffix} Gỡ cài đặt tất cả tăng tốc
@@ -356,13 +356,13 @@ echo && echo -e " Tập lệnh quản lý cài đặt tăng tốc TCP ${Red_font
 
 	check_status
 	if [[ ${kernel_status} == "noinstall" ]]; then
-		echo -e " Tình trạng hiện tại: ${Green_font_prefix}Chưa cài đặt${Font_color_suffix} hạt nhân tăng tốc ${Red_font_prefix}Vui lòng cài đặt hạt nhân trước${Font_color_suffix}"
+		echo -e " Tình trạng hiện tại: ${Green_font_prefix}Chưa cài đặt${Font_color_suffix} mô-đun tăng tốc ${Red_font_prefix}Vui lòng cài đặt mô-đun trước${Font_color_suffix}"
 	else
-		echo -e " Tình trạng hiện tại: ${Green_font_prefix}Cài đặt${Font_color_suffix} ${_font_prefix}${kernel_status}${Font_color_suffix} hạt nhân tăng tốc, ${Green_font_prefix}${run_status}${Font_color_suffix}"
+		echo -e " Tình trạng hiện tại: ${Green_font_prefix}Đã cài đặt${Font_color_suffix} ${_font_prefix}${kernel_status}${Font_color_suffix} mô-đun tăng tốc, ${Green_font_prefix}${run_status}${Font_color_suffix}"
 		
 	fi
 echo
-read -p " Vui lòng nhập số [0-11]:" num
+read -p " Lựa chọn của bạn là [0-11]: " num
 case "$num" in
 	0)
 	Update_Shell
@@ -402,7 +402,7 @@ case "$num" in
 	;;
 	*)
 	clear
-	echo -e "${Error}:Vui lòng nhập số chính xác [0-11]"
+	echo -e " ${Error} Vui lòng nhập số chính xác [0-11]"
 	sleep 5s
 	start_menu
 	;;
@@ -415,26 +415,26 @@ detele_kernel(){
 	if [[ "${release}" == "centos" ]]; then
 		rpm_total=`rpm -qa | grep kernel | grep -v "${kernel_version}" | grep -v "noarch" | wc -l`
 		if [ "${rpm_total}" > "1" ]; then
-			echo -e "Phát hiện ${rpm_total} các hạt nhân còn lại, bắt đầu gỡ cài đặt..."
+			echo -e " Phát hiện ${rpm_total} các mô-đun còn lại, bắt đầu gỡ cài đặt..."
 			for((integer = 1; integer <= ${rpm_total}; integer++)); do
 				rpm_del=`rpm -qa | grep kernel | grep -v "${kernel_version}" | grep -v "noarch" | head -${integer}`
-				echo -e "Bắt đầu gỡ cài đặt ${rpm_del} hạt nhân..."
+				echo -e " Bắt đầu gỡ cài đặt ${rpm_del} hạt nhân..."
 				rpm --nodeps -e ${rpm_del}
-				echo -e "Gỡ cài đặt ${rpm_del} Quá trình gỡ hạt nhân đã hoàn tất, hãy tiếp tục..."
+				echo -e " Gỡ cài đặt ${rpm_del} Quá trình gỡ mô-đun đã hoàn tất, hãy tiếp tục..."
 			done
-			echo --nodeps -e "Quá trình gỡ cài đặt kernel hoàn tất, hãy tiếp tục..."
+			echo --nodeps -e " Quá trình gỡ cài đặt kernel hoàn tất, hãy tiếp tục..."
 		else
 			echo -e " Đã phát hiện số lõi không chính xác, vui lòng kiểm tra !" && exit 1
 		fi
 	elif [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
 		deb_total=`dpkg -l | grep linux-image | awk '{print $2}' | grep -v "${kernel_version}" | wc -l`
 		if [ "${deb_total}" > "1" ]; then
-			echo -e " Phát hiện ${deb_total} các hạt nhân còn lại, bắt đầu gỡ cài đặt..."
+			echo -e " Phát hiện ${deb_total} các mô-đun còn lại, bắt đầu gỡ cài đặt..."
 			for((integer = 1; integer <= ${deb_total}; integer++)); do
 				deb_del=`dpkg -l|grep linux-image | awk '{print $2}' | grep -v "${kernel_version}" | head -${integer}`
-				echo -e "Bắt đầu gỡ cài đặt ${deb_del} hạt nhân..."
+				echo -e " Bắt đầu gỡ cài đặt ${deb_del} mô-đun..."
 				apt-get purge -y ${deb_del}
-				echo -e "Gỡ cài đặt ${deb_del} Quá trình dỡ hạt nhân đã hoàn tất, hãy tiếp tục..."
+				echo -e " Gỡ cài đặt ${deb_del} Quá trình gỡ mô-đun đã hoàn tất, hãy tiếp tục..."
 			done
 			echo -e " Quá trình gỡ cài đặt kernel hoàn tất, hãy tiếp tục..."
 		else
@@ -448,13 +448,13 @@ BBR_grub(){
 	if [[ "${release}" == "centos" ]]; then
         if [[ ${version} = "6" ]]; then
             if [ ! -f "/boot/grub/grub.conf" ]; then
-                echo -e "${Error} /boot/grub/grub.conf không tìm thấy, vui lòng kiểm tra."
+                echo -e " ${Error} /boot/grub/grub.conf không tìm thấy, vui lòng kiểm tra."
                 exit 1
             fi
             sed -i 's/^default=.*/default=0/g' /boot/grub/grub.conf
         elif [[ ${version} = "7" ]]; then
             if [ ! -f "/boot/grub2/grub.cfg" ]; then
-                echo -e "${Error} /boot/grub2/grub.cfg không tìm thấy, vui lòng kiểm tra."
+                echo -e " ${Error} /boot/grub2/grub.cfg không tìm thấy, vui lòng kiểm tra."
                 exit 1
             fi
             grub2-set-default 0
@@ -511,22 +511,22 @@ check_sys_bbr(){
 		if [[ ${version} -ge "6" ]]; then
 			installbbr
 		else
-			echo -e "${Error} Hạt nhân BBR không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
+			echo -e " ${Error} Mô-đun BBR không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	elif [[ "${release}" == "debian" ]]; then
 		if [[ ${version} -ge "8" ]]; then
 			installbbr
 		else
-			echo -e "${Error} Hạt nhân BBR không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
+			echo -e " ${Error} Mô-đun BBR không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	elif [[ "${release}" == "ubuntu" ]]; then
 		if [[ ${version} -ge "14" ]]; then
 			installbbr
 		else
-			echo -e "${Error} Hạt nhân BBR không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
+			echo -e " ${Error} Mô-đun BBR không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	else
-		echo -e "${Error} Hạt nhân BBR không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
+		echo -e " ${Error} Mô-đun BBR không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 	fi
 }
 
@@ -536,22 +536,22 @@ check_sys_bbrplus(){
 		if [[ ${version} -ge "6" ]]; then
 			installbbrplus
 		else
-			echo -e "${Error} Hạt nhân BBRplus không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
+			echo -e " ${Error} Mô-đun BBRplus không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	elif [[ "${release}" == "debian" ]]; then
 		if [[ ${version} -ge "8" ]]; then
 			installbbrplus
 		else
-			echo -e "${Error} Hạt nhân BBRplus không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
+			echo -e " ${Error} Mô-đun BBRplus không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	elif [[ "${release}" == "ubuntu" ]]; then
 		if [[ ${version} -ge "14" ]]; then
 			installbbrplus
 		else
-			echo -e "${Error} Hạt nhân BBRplus không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
+			echo -e " ${Error} Mô-đun BBRplus không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	else
-		echo -e "${Error} Hạt nhân BBRplus không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
+		echo -e " ${Error} Mô-đun BBRplus không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 	fi
 }
 
@@ -568,7 +568,7 @@ check_sys_Lotsever(){
 			kernel_version="3.10.0-327"
 			installlot
 		else
-			echo -e "${Error} Lotsever không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
+			echo -e " ${Error} Lotsever không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	elif [[ "${release}" == "debian" ]]; then
 		if [[ ${version} = "7" || ${version} = "8" ]]; then
@@ -585,7 +585,7 @@ check_sys_Lotsever(){
 				installlot
 			fi
 		else
-			echo -e "${Error} Lotsever không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
+			echo -e " ${Error} Lotsever không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	elif [[ "${release}" == "ubuntu" ]]; then
 		if [[ ${version} -ge "12" ]]; then
@@ -597,10 +597,10 @@ check_sys_Lotsever(){
 				installlot
 			fi
 		else
-			echo -e "${Error} Lotsever không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
+			echo -e " ${Error} Lotsever không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 		fi
 	else
-		echo -e "${Error} Lotsever không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
+		echo -e " ${Error} Lotsever không hỗ trợ hệ thống hiện tại ${release} ${version} ${bit} !" && exit 1
 	fi
 }
 
@@ -621,50 +621,50 @@ check_status(){
 		if [[ -e /appex/bin/lotServer.sh ]]; then
 			run_status=`bash /appex/bin/lotServer.sh status | grep "LotServer" | awk  '{print $3}'`
 			if [[ ${run_status} = "running!" ]]; then
-				run_status="Đã bật thành công"
+				run_status=" Đã bật thành công"
 			else 
-				run_status="không thể kích hoạt"
+				run_status=" không thể kích hoạt"
 			fi
 		else 
-			run_status="Mô-đun tăng tốc chưa được cài đặt"
+			run_status=" Mô-đun tăng tốc chưa được cài đặt"
 		fi
 	elif [[ ${kernel_status} == "BBR" ]]; then
 		run_status=`grep "net.ipv4.tcp_congestion_control" /etc/sysctl.conf | awk -F "=" '{gsub("^[ \t]+|[ \t]+$", "", $2);print $2}'`
 		if [[ ${run_status} == "bbr" ]]; then
 			run_status=`lsmod | grep "bbr" | awk '{print $1}'`
 			if [[ ${run_status} == "tcp_bbr" ]]; then
-				run_status="BBR đã bật thành công"
+				run_status=" BBR đã bật thành công"
 			else 
-				run_status="BBR không khởi động được"
+				run_status=" BBR không khởi động được"
 			fi
 		elif [[ ${run_status} == "tsunami" ]]; then
 			run_status=`lsmod | grep "tsunami" | awk '{print $1}'`
 			if [[ ${run_status} == "tcp_tsunami" ]]; then
-				run_status="Bản sửa đổi BBR Magic đã bật thành công"
+				run_status=" Bản sửa đổi BBR Magic đã bật thành công"
 			else 
-				run_status="Không thể sửa đổi BBR Magic"
+				run_status=" Không thể sửa đổi BBR Magic"
 			fi
 		elif [[ ${run_status} == "nanqinlang" ]]; then
 			run_status=`lsmod | grep "nanqinlang" | awk '{print $1}'`
 			if [[ ${run_status} == "tcp_nanqinlang" ]]; then
-				run_status="Đã khởi chạy thành công bản sửa đổi BBR Magic violence"
+				run_status=" Đã khởi chạy thành công bản sửa đổi BBR Magic violence"
 			else 
-				run_status="Không thể khởi động bản sửa đổi BBR Magic violence"
+				run_status=" Không thể khởi động bản sửa đổi BBR Magic violence"
 			fi
 		else 
-			run_status="Mô-đun tăng tốc chưa được cài đặt"
+			run_status=" Mô-đun tăng tốc chưa được cài đặt"
 		fi
 	elif [[ ${kernel_status} == "BBRplus" ]]; then
 		run_status=`grep "net.ipv4.tcp_congestion_control" /etc/sysctl.conf | awk -F "=" '{gsub("^[ \t]+|[ \t]+$", "", $2);print $2}'`
 		if [[ ${run_status} == "bbrplus" ]]; then
 			run_status=`lsmod | grep "bbrplus" | awk '{print $1}'`
 			if [[ ${run_status} == "tcp_bbrplus" ]]; then
-				run_status="BBRplus đã bật thành công"
+				run_status=" BBRplus đã bật thành công"
 			else 
-				run_status="BBRplus không khởi động được"
+				run_status=" BBRplus không khởi động được"
 			fi
 		else 
-			run_status="Mô-đun tăng tốc chưa được cài đặt"
+			run_status=" Mô-đun tăng tốc chưa được cài đặt"
 		fi
 	fi
 }
@@ -672,6 +672,6 @@ check_status(){
 ############# Các thành phần kiểm tra hệ thống #############
 check_sys
 check_version
-[[ ${release} != "debian" ]] && [[ ${release} != "ubuntu" ]] && [[ ${release} != "centos" ]] && echo -e "${Error} Script này không hỗ trợ hệ thống hiện tại ${release} !" && exit 1
+[[ ${release} != "debian" ]] && [[ ${release} != "ubuntu" ]] && [[ ${release} != "centos" ]] && echo -e " ${Error} Script này không hỗ trợ hệ thống hiện tại ${release} !" && exit 1
 start_menu
 
