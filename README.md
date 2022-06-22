@@ -7,3 +7,7 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/DauDau432/Linu
 chmod +x tcp.sh
 ./tcp.sh
 ```
+***Hoặc***
+```
+bash <(curl -L -s https://raw.githubusercontent.com/DauDau432/Linux-NetSpeed/master/tcp.sh)
+```
