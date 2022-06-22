@@ -335,7 +335,7 @@ Update_Shell(){
 start_menu(){
 clear
 echo && echo -e " Tập lệnh quản lý cài đặt tăng tốc TCP ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
-  -- Đậu Đậu 5.0 | https://github.com/DauDau432/Linux-NetSpeed --
+ -- Đậu Đậu 5.0 | https://github.com/DauDau432/Linux-NetSpeed --
   
  ${Green_font_prefix}0.${Font_color_suffix} nâng cấp script
 ———————————— Quản lý mô-đun ————————————
