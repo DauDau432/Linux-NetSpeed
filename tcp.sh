@@ -6,7 +6,7 @@ export PATH
 #  Yêu cầu hệ thống: CentOS 6/7, Debian 8/9, Ubuntu 16+
 #  Mô tả: BBR + BBR bản sửa đổi Magic + BBRplus + Lotserver
 #  Phiên bản: 1.4.0
-#  Tác giả: Qianying, cx9208
+#  Tác giả: Qianying, cx9208, DauDau432
 #  Blog: https://www.939.me/
 #  Nên sử dụng kernel trên 5.5 để mở trực tiếp bbr để có tốc độ tốt nhất
 #=================================================
