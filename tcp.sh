@@ -339,13 +339,13 @@ echo && echo -e " Tập lệnh quản lý cài đặt tăng tốc TCP ${Red_font
   
  ${Green_font_prefix}0.${Font_color_suffix} nâng cấp script
 ———————————— Quản lý mô-đun ————————————
- ${Green_font_prefix}1.${Font_color_suffix} Cài đặt hạt nhân được sửa đổi BBR Magic / BBR
- ${Green_font_prefix}2.${Font_color_suffix} Cài đặt phiên bản BBRplus của hạt nhân
- ${Green_font_prefix}3.${Font_color_suffix} Cài đặt nhân Lotserver (Tốc độ sắc nét)
+ ${Green_font_prefix}1.${Font_color_suffix} Cài đặt mô-đun được sửa đổi BBR Magic / BBR
+ ${Green_font_prefix}2.${Font_color_suffix} Cài đặt mô-đun của phiên bản BBRplus  
+ ${Green_font_prefix}3.${Font_color_suffix} Cài đặt mô-đun Lotserver (Tốc độ sắc nét)
 ———————————— Quản lý tăng tốc ————————————
  ${Green_font_prefix}4.${Font_color_suffix} Sử dụng BBR để tăng tốc
  ${Green_font_prefix}5.${Font_color_suffix} Sử dụng bản sửa đổi BBR Magic để tăng tốc độ
- ${Green_font_prefix}6.${Font_color_suffix} Sử dụng sửa đổi BBR Magic violence để tăng tốc (một số hệ thống không được hỗ trợ)
+ ${Green_font_prefix}6.${Font_color_suffix} Sử dụng bản sửa đổi BBR Magic violence để tăng tốc (một số hệ thống không được hỗ trợ)
  ${Green_font_prefix}7.${Font_color_suffix} Sử dụng phiên bản BBRplus để tăng tốc
  ${Green_font_prefix}8.${Font_color_suffix} Sử dụng Lotserver (tốc độ nhanh) để tăng tốc
 ———————————— Quản lý khác ————————————
